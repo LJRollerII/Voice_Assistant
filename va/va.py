@@ -12,4 +12,25 @@ def speak(text):
     playsound.playsound(filename)
 
 
-speak("hello everyone")
+def get_audio():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        audio = r.listen(source)
+        said = ""
+
+        try:
+            said = r.recognize_google(audio)
+            print(said)
+        except Exception as e:
+            print("Exception: " + str(e))
+
+    return said
+
+
+text = get_audio()
+
+if "hello" in text:
+    speak("hello, how are you?")
+
+if "what is your name" in text:
+    speak("My name is Remington")
